@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 import javax.swing.JPanel;
 
@@ -24,6 +25,7 @@ public class Jogo {
 		arrayDePosicoes = new Posicao[quantidadeLinhas][quantidadeColunas];
 		painelCampoMinado = new JPanel(new GridLayout(quantidadeLinhas, quantidadeColunas));
 		criaAsPosicoes();
+		implantaBombas();
 
 	}
 
@@ -60,5 +62,35 @@ public class Jogo {
 		arrayDePosicoes[linha + 1][coluna + 1].getjButton().setBackground(Color.GRAY);
 
 	}
+	
+	
+	
+	private void implantaBombas() {
+		
+		int quantidadeBombas = (int) 
+				(Math.round((quantidadeLinhas * quantidadeColunas) / 10)) * 2;
+
+		boolean repete = true;
+		Random geradorDefinePosicaoDaBomba = new Random();
+		do {
+			int linha = geradorDefinePosicaoDaBomba.nextInt(quantidadeLinhas);
+			int coluna = geradorDefinePosicaoDaBomba.nextInt(quantidadeColunas);
+
+			if (!arrayDePosicoes[linha][coluna].isBomba()) {
+				arrayDePosicoes[linha][coluna].setBomba();
+				if (--quantidadeBombas == 0)
+					repete = false;
+			}
+		} while (repete);
+	}
 
 }
+
+
+
+
+
+
+
+
+

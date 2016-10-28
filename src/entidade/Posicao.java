@@ -1,5 +1,6 @@
 package entidade;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionListener;
 
@@ -28,6 +29,19 @@ public class Posicao {
 
 	public Component getjButton() {
 		return jButton;
+	}
+
+
+	public boolean isBomba() {
+		return bomba;
+	}
+
+
+	public void setBomba() {
+		this.bomba = true;
+		jButton.setText("B");
+		jButton.setForeground(Color.RED);
+		
 	}
 
 

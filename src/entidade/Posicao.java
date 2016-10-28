@@ -2,8 +2,12 @@ package entidade;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Image;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 public class Posicao {
@@ -13,6 +17,7 @@ public class Posicao {
 	private boolean bomba;
 	private boolean clicado;
 	private JButton jButton;
+	private static Image imagemMenor = null;
 	
 
 	public Posicao(ActionListener actionListener,int linha, int coluna) {
@@ -24,6 +29,15 @@ public class Posicao {
 		jButton.setActionCommand(linha + ":" + coluna);
 		jButton.setToolTipText(linha + "," + coluna);
 		jButton.addActionListener(actionListener);
+		if (this.imagemMenor == null){
+			Image imagem = null;
+			try {
+				imagem = ImageIO.read(getClass().getResource("../imagens/bomba.jpg"));
+				imagemMenor = imagem.getScaledInstance(25, 20, Image.SCALE_SMOOTH);
+			} catch (IOException e) {
+				System.out.println("ERRO ao carregar icon!!!");
+			}
+		}
 	}
 
 
@@ -39,8 +53,9 @@ public class Posicao {
 
 	public void setBomba() {
 		this.bomba = true;
-		jButton.setText("B");
-		jButton.setForeground(Color.RED);
+		jButton.setText("");
+//		jButton.setForeground(Color.RED);
+		jButton.setIcon(new ImageIcon(imagemMenor));
 		
 	}
 
